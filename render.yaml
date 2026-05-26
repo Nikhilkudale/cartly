@@ -1,0 +1,18 @@
+# Render Blueprint — backend only (frontend on Cloudflare Pages)
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: cartly-api
+    runtime: java
+    rootDir: backend
+    buildCommand: mvn -DskipTests package
+    startCommand: java -Dspring.profiles.active=prod -jar target/ecommerce-backend-1.0.0.jar
+    plan: free
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: APP_JWT_SECRET
+        generateValue: true
+      - key: APP_CORS_ALLOWED_ORIGINS
+        sync: false
+        # Set after deploy: https://your-project.pages.dev

@@ -1,0 +1,43 @@
+name,description,price,stock,imageUrl,categoryName
+Samsung Galaxy M34 5G,"6.5 inch AMOLED, 6000mAh, 50MP camera",15999,120,https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=80,Mobiles & Tablets
+iPhone 15,"A16 chip, Dynamic Island, dual camera system",69999,45,https://images.unsplash.com/photo-1592899677974-9bc0a4e8e0e0?auto=format&fit=crop&w=800&q=80,Mobiles & Tablets
+OnePlus Nord CE 3,"120Hz display, 80W fast charge",24999,80,https://images.unsplash.com/photo-1565849902261-2a39be9c72c0?auto=format&fit=crop&w=800&q=80,Mobiles & Tablets
+Redmi Note 13 Pro,"200MP camera, curved AMOLED display",23999,95,https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=800&q=80,Mobiles & Tablets
+iPad Air,"M1 chip, 10.9 inch Liquid Retina display",54999,35,https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=800&q=80,Mobiles & Tablets
+Wireless Earbuds Pro,"ANC, 28h total battery, IPX5",2999,200,https://images.unsplash.com/photo-1590658268037-6bfad31c0f0e?auto=format&fit=crop&w=800&q=80,Mobiles & Tablets
+HP Pavilion Laptop,"Intel i5, 16GB RAM, 512GB SSD, 15.6 inch",54999,60,https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80,Laptops & Computers
+MacBook Air M2,"13.6 inch display, 8GB RAM, 256GB SSD",99999,25,https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80,Laptops & Computers
+ASUS Gaming Laptop,"RTX 4060, 144Hz display, 16GB RAM",89999,30,https://images.unsplash.com/photo-1603302576837-37561b2e2302?auto=format&fit=crop&w=800&q=80,Laptops & Computers
+Mechanical Keyboard RGB,"Hot-swappable switches, wireless",3499,150,https://images.unsplash.com/photo-1587829741301-d7988e5b0e8f?auto=format&fit=crop&w=800&q=80,Laptops & Computers
+27 inch 4K Monitor,"IPS panel, 60Hz, HDMI and DisplayPort",18999,40,https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=800&q=80,Laptops & Computers
+1TB NVMe SSD,"Gen4, 3500MB/s read speed",5999,180,https://images.unsplash.com/photo-1597872200969-2b65d7f5c5b1?auto=format&fit=crop&w=800&q=80,Laptops & Computers
+55 inch Smart LED TV,"4K UHD, Dolby Audio, Android TV",42999,50,https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=800&q=80,TV & Appliances
+Split AC 1.5 Ton,"5-star inverter, copper condenser",35999,35,https://images.unsplash.com/photo-1631545806609-8fb5c1b2f2f3?auto=format&fit=crop&w=800&q=80,TV & Appliances
+Front Load Washing Machine,"7kg, steam wash, inverter motor",27999,28,https://images.unsplash.com/photo-1626806819282-2d1b0d0e0b0a?auto=format&fit=crop&w=800&q=80,TV & Appliances
+Microwave Oven 28L,"Convection, auto cook menus",8999,70,https://images.unsplash.com/photo-1574269909862-7e1d1bb011e9?auto=format&fit=crop&w=800&q=80,TV & Appliances
+Air Fryer 4.5L,"Digital touch panel, 8 presets",4999,90,https://images.unsplash.com/photo-1585515320310-259814833e62?auto=format&fit=crop&w=800&q=80,TV & Appliances
+Bluetooth Speaker,"20W RMS, 12h playback, waterproof",2499,160,https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80,TV & Appliances
+Men's Casual Sneakers,"Lightweight mesh, cushioned sole",1999,300,https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80,Fashion
+Women's Running Shoes,"Breathable knit upper, responsive midsole",2499,220,https://images.unsplash.com/photo-1543163521-1bf539c55dd1?auto=format&fit=crop&w=800&q=80,Fashion
+Men's Slim Fit Jeans,"Stretch denim, mid-rise fit",1299,400,https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=800&q=80,Fashion
+Women's Kurti Set,"Cotton blend, festive print",899,350,https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&q=80,Fashion
+Leather Wallet,"Genuine leather, RFID blocking",799,500,https://images.unsplash.com/photo-1627123424574-724758594e93?auto=format&fit=crop&w=800&q=80,Fashion
+Aviator Sunglasses,"UV400 polarized lenses",599,280,https://images.unsplash.com/photo-1572635196233-14b492f7fb42?auto=format&fit=crop&w=800&q=80,Fashion
+Queen Size Bedsheet Set,"300 TC cotton, 4 pieces",1499,180,https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80,Home & Furniture
+Study Table with Shelf,"Engineered wood, compact design",4999,55,https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=800&q=80,Home & Furniture
+Office Chair Ergonomic,"Lumbar support, adjustable height",6999,65,https://images.unsplash.com/photo-1580480051063-fd921d76291d?auto=format&fit=crop&w=800&q=80,Home & Furniture
+LED Desk Lamp,"3 color modes, touch dimmer",899,240,https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80,Home & Furniture
+Non-stick Cookware Set,"5-piece, induction compatible",2999,120,https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=800&q=80,Home & Furniture
+Vacuum Cleaner,"Cordless, HEPA filter, 40min runtime",8999,40,https://images.unsplash.com/photo-1558317374-0bc8c8f63a7f?auto=format&fit=crop&w=800&q=80,Home & Furniture
+Face Wash Vitamin C,"Brightening formula, 100ml",299,600,https://images.unsplash.com/photo-1556228578-0d85b1a4d571?auto=format&fit=crop&w=800&q=80,Beauty & Personal Care
+Perfume Eau de Parfum,"Long lasting fragrance, 100ml",1999,150,https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80,Beauty & Personal Care
+Electric Trimmer,"Cordless, 90min runtime, waterproof",1499,200,https://images.unsplash.com/photo-1621607512214-68297480165e?auto=format&fit=crop&w=800&q=80,Beauty & Personal Care
+Hair Dryer 2000W,"Ionic technology, 2 speed settings",1299,130,https://images.unsplash.com/photo-1522338242992-e1a54906a8e8?auto=format&fit=crop&w=800&q=80,Beauty & Personal Care
+Yoga Mat 6mm,"Anti-slip surface, carrying strap included",699,320,https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80,Sports & Books
+Cricket Bat Kashmir Willow,"Full size, rubber grip handle",1999,85,https://images.unsplash.com/photo-1624526279023-5d2a6b0b0b0b?auto=format&fit=crop&w=800&q=80,Sports & Books
+Bestseller Novel,"Paperback edition",399,500,https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=800&q=80,Sports & Books
+Adjustable Dumbbells 20kg,"Home gym pair set",4999,45,https://images.unsplash.com/photo-1517836357463-4aa95e956833?auto=format&fit=crop&w=800&q=80,Sports & Books
+Premium Basmati Rice 5kg,"Aged long grain rice",699,400,https://images.unsplash.com/photo-1586201375761-b1f5c0e7a2b?auto=format&fit=crop&w=800&q=80,Grocery & Gourmet
+Extra Virgin Olive Oil 1L,"Cold pressed",899,250,https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=800&q=80,Grocery & Gourmet
+Dark Chocolate Assorted,"500g gift pack",499,350,https://images.unsplash.com/photo-1481391319762-47dff72954a0?auto=format&fit=crop&w=800&q=80,Grocery & Gourmet
+Green Tea 100 Bags,"Antioxidant blend",349,420,https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80,Grocery & Gourmet
