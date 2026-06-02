@@ -84,7 +84,7 @@ export default function DeveloperSandbox({
       <div className="px-5 py-4 border-b border-white/5 bg-slate-950/80 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Terminal className="h-5 w-5 text-luxury-gold animate-pulse" />
-          <span className="font-display font-extrabold tracking-tight text-white uppercase text-xs">Onyx Luxe Server Engine</span>
+          <span className="font-display font-extrabold tracking-tight text-white uppercase text-xs">Cartly Luxe Server Engine</span>
           <span className="text-[9px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono border border-emerald-500/20 uppercase tracking-widest font-black leading-none">
             Cluster Online
           </span>

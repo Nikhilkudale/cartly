@@ -29,10 +29,10 @@ export default function App() {
   const [isOrdering, setIsOrdering] = useState(false);
   const [confirmedOrderId, setConfirmedOrderId] = useState<number | null>(null);
 
-  // Luxury wishlist & orders states
+  // Wishlist and orders state initialization
   const [savedItems, setSavedItems] = useState<Product[]>(() => {
     try {
-      const saved = localStorage.getItem('onyx_saved_items');
+      const saved = localStorage.getItem('cartly_saved_items');
       return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
@@ -41,7 +41,7 @@ export default function App() {
 
   const [orders, setOrders] = useState<SavedOrder[]>(() => {
     try {
-      const saved = localStorage.getItem('onyx_orders');
+      const saved = localStorage.getItem('cartly_orders');
       return saved ? JSON.parse(saved) : [];
     } catch {
       return [];
@@ -55,7 +55,7 @@ export default function App() {
   const [pendingCheckoutAfterLogin, setPendingCheckoutAfterLogin] = useState(false);
 
   // Developer companion states
-  const [isSandboxOpen, setIsSandboxOpen] = useState(true); // Default open on desktop to highlight the companion!
+  const [isSandboxOpen, setIsSandboxOpen] = useState(!import.meta.env.PROD);
   const [sandboxActiveTab, setSandboxActiveTab] = useState<'terminal' | 'database' | 'code'>('terminal');
   const [systemLogs, setSystemLogs] = useState<SpringLog[]>([]);
   const [dbTables, setDbTables] = useState<MySQLTable[]>([]);
@@ -216,9 +216,9 @@ export default function App() {
     fetchOrders();
   }, [currentUser]);
 
-  // Sync wishlist to local storage (Wishlist remains local-storage persistent)
+  // Sync wishlist to local storage
   useEffect(() => {
-    localStorage.setItem('onyx_saved_items', JSON.stringify(savedItems));
+    localStorage.setItem('cartly_saved_items', JSON.stringify(savedItems));
   }, [savedItems]);
 
   // Reset pagination limit on filter/search change
@@ -367,7 +367,7 @@ export default function App() {
 
       const payload = {
         userId: currentUser?.id || 1,
-        userEmail: currentUser?.email || "customer@onyx.luxe",
+        userEmail: currentUser?.email || "customer@cartly.com",
         shippingAddress: orderData.shippingAddress,
         items: cart.map(item => ({
           productId: item.product.id,
@@ -480,7 +480,7 @@ export default function App() {
   const handleBuyNow = (product: Product) => {
     const logs = logAddToCart(product.id, 1).map(l => ({
       ...l,
-      className: l.className.replace('com.flipkart.clone', 'com.onyx.luxe')
+      className: l.className.replace('com.flipkart.clone', 'com.cartly')
     }));
     setSystemLogs(prev => [...prev, ...logs]);
     
@@ -516,11 +516,11 @@ export default function App() {
         timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19) + '.002',
         level: 'INFO' as const,
         className: 'org.springframework.boot.SpringApplication',
-        message: 'Starting OnyxLuxeApplication tomcat thread on port 8080. Connected schema logs to port 3306'
+        message: 'Starting CartlyApplication tomcat thread on port 8080. Connected schema logs to port 3306'
       },
       ...logProductFetch('All').map(l => ({
         ...l,
-        className: l.className.replace('com.flipkart.clone', 'com.onyx.luxe')
+        className: l.className.replace('com.flipkart.clone', 'com.cartly')
       }))
     ];
     setSystemLogs(resetLogs);
@@ -540,7 +540,7 @@ export default function App() {
       if (res && res.success && res.user) {
         setCurrentUser(res.user);
         setIsLoginModalOpen(false);
-        addToast(`Successfully authenticated as ${res.user.fullName}! Welcome to Onyx Luxe.`, 'success');
+        addToast(`Successfully authenticated as ${res.user.fullName}! Welcome to Cartly.`, 'success');
 
         if (pendingCheckoutAfterLogin) {
           setPendingCheckoutAfterLogin(false);
@@ -621,7 +621,7 @@ export default function App() {
         id: logId + '_2',
         timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19) + '.992',
         level: 'INFO' as const,
-        className: 'com.onyx.luxe.controller.AuthController',
+        className: 'com.cartly.controller.AuthController',
         message: 'Context cleared. JWT session token revoked successfully.'
       }
     ];
@@ -664,21 +664,21 @@ export default function App() {
         id: logId + '_1',
         timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19) + '.005',
         level: 'INFO' as const,
-        className: 'com.onyx.luxe.controller.AdminController',
+        className: 'com.cartly.controller.AdminController',
         message: `Admin authorization success. Dispatching request mapping: POST '/api/admin/restock'`
       },
       {
         id: logId + '_2',
         timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19) + '.008',
         level: 'INFO' as const,
-        className: 'com.onyx.luxe.repository.ProductRepository',
+        className: 'com.cartly.repository.ProductRepository',
         message: `Database sync transaction: SQL: UPDATE products SET stock = 50; [Result: Bulk refresh OK]`
       },
       {
         id: logId + '_3',
         timestamp: new Date().toISOString().replace('T', ' ').substring(0, 19) + '.012',
         level: 'INFO' as const,
-        className: 'com.onyx.luxe.controller.AdminController',
+        className: 'com.cartly.controller.AdminController',
         message: `Success HTTP 200. Restocked all items back to 50 in active MySQL table dataset.`
       }
     ];
@@ -943,7 +943,7 @@ export default function App() {
         </div>
 
         {/* RIGHT COMPONENT: Elegant Developer Companion Live DB Tab Trace split window */}
-        {isSandboxOpen && (
+        {!import.meta.env.PROD && isSandboxOpen && (
           <div className="flex-1 lg:max-w-[45%] xl:max-w-[40%] bg-slate-900 border-l border-white/5 flex flex-col h-full min-h-0 min-w-0">
             <DeveloperSandbox
               logs={systemLogs}
@@ -1194,7 +1194,7 @@ export default function App() {
           <span className="hover:text-white cursor-pointer transition-all">REST APIs</span>
         </div>
         <div className="ml-auto text-[9px] uppercase tracking-widest text-white/30">
-          <span>© 2026 Onyx Luxe Inc. &bull; Enterprise Secure Application</span>
+          <span>© 2026 Cartly Inc. &bull; Enterprise Secure Application</span>
         </div>
       </footer>
     </div>

@@ -20,7 +20,7 @@ export let mockUsers: MockUser[] = [
   {
     id: 1,
     username: 'nikhil_customer',
-    email: 'nikhil@onyx.luxe',
+    email: 'nikhil@cartly.com',
     role: 'CUSTOMER',
     fullName: 'Nikhil Kudale',
     passwordHash: '$2a$10$vN9fPZ38ZAt8zLhVvXo5xe1R04t0kUp1wZ9vQzU0.W4O.H6A9FvU.'
@@ -35,10 +35,10 @@ export let mockUsers: MockUser[] = [
   },
   {
     id: 3,
-    username: 'admin_onyx',
-    email: 'admin@onyx.luxe',
+    username: 'admin_cartly',
+    email: 'admin@cartly.com',
     role: 'ADMIN',
-    fullName: 'Onyx Administrator',
+    fullName: 'Cartly Administrator',
     passwordHash: '$2a$10$vN9fPZ38ZAt8zLhVvXo5xe1R04t0kUp1wZ9vQzU0.W4O.H6A9FvU.'
   }
 ];
@@ -59,7 +59,7 @@ export function resetDatabase() {
     {
       id: 1,
       username: 'nikhil_customer',
-      email: 'nikhil@onyx.luxe',
+      email: 'nikhil@cartly.com',
       role: 'CUSTOMER',
       fullName: 'Nikhil Kudale',
       passwordHash: '$2a$10$vN9fPZ38ZAt8zLhVvXo5xe1R04t0kUp1wZ9vQzU0.W4O.H6A9FvU.'
@@ -74,10 +74,10 @@ export function resetDatabase() {
     },
     {
       id: 3,
-      username: 'admin_onyx',
-      email: 'admin@onyx.luxe',
+      username: 'admin_cartly',
+      email: 'admin@cartly.com',
       role: 'ADMIN',
-      fullName: 'Onyx Administrator',
+      fullName: 'Cartly Administrator',
       passwordHash: '$2a$10$vN9fPZ38ZAt8zLhVvXo5xe1R04t0kUp1wZ9vQzU0.W4O.H6A9FvU.'
     }
   ];

@@ -70,7 +70,7 @@ export default function CheckoutModal({
       if (!cardHolder) setCardHolder(currentUser.fullName);
       
       // Attempt to load previously saved address from localStorage for real state persistence
-      const savedAddress = localStorage.getItem(`onyx_address_${currentUser.username}`);
+      const savedAddress = localStorage.getItem(`cartly_address_${currentUser.username}`);
       if (savedAddress) {
         try {
           const parsed = JSON.parse(savedAddress);
@@ -162,7 +162,7 @@ export default function CheckoutModal({
     // Save address locally if desired
     if (saveToProfile && currentUser) {
       const addressData = { fullName, phone, pincode, street, city, state };
-      localStorage.setItem(`onyx_address_${currentUser.username}`, JSON.stringify(addressData));
+      localStorage.setItem(`cartly_address_${currentUser.username}`, JSON.stringify(addressData));
     }
 
     setStep('payment');
@@ -259,7 +259,7 @@ export default function CheckoutModal({
           <div>
             <div className="flex items-center gap-2.5 mb-6">
               <span className="font-display font-black text-lg tracking-normal text-white">
-                O<span className="text-luxury-gold text-gold-gradient">N</span>YX
+                C<span className="text-luxury-gold text-gold-gradient">A</span>RTLY
               </span>
               <span className="text-[9px] uppercase tracking-widest bg-white/5 text-white/50 border border-white/10 px-2 py-0.5 rounded font-mono">
                 Settle
@@ -540,7 +540,7 @@ export default function CheckoutModal({
                             <div className="h-6.5 w-8 bg-amber-500/10 border border-amber-500/25 rounded-md relative flex items-center justify-center text-luxury-gold text-xs">
                               <Cpu className="h-4.5 w-4.5 text-luxury-gold/80" />
                             </div>
-                            <span className="text-[10px] font-display font-extrabold text-[#7C8BA1]">Onyx Luxe Signature</span>
+                            <span className="text-[10px] font-display font-extrabold text-[#7C8BA1]">Cartly Luxe Signature</span>
                           </div>
 
                           <div className="space-y-1 mt-2">

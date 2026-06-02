@@ -46,7 +46,7 @@ export default function OnyxHeader({
           <div className="flex items-center gap-2">
             <div className="relative group">
               <span className="font-display font-extrabold text-2xl tracking-normal text-white">
-                O<span className="text-luxury-gold text-gold-gradient">N</span>YX
+                C<span className="text-luxury-gold text-gold-gradient">A</span>RTLY
               </span>
               <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-gold-gradient transition-all duration-300 group-hover:w-full" />
             </div>
@@ -93,14 +93,16 @@ export default function OnyxHeader({
               </button>
             )}
             
-            <button
-              onClick={onToggleSandbox}
-              className={`p-1.5 rounded transition-all cursor-pointer ${
-                isSandboxOpen ? 'bg-luxury-gold/20 text-luxury-gold' : 'bg-white/5 text-white/70'
-              }`}
-            >
-              <Terminal className="h-4.5 w-4.5" />
-            </button>
+            {!import.meta.env.PROD && (
+              <button
+                onClick={onToggleSandbox}
+                className={`p-1.5 rounded transition-all cursor-pointer ${
+                  isSandboxOpen ? 'bg-luxury-gold/20 text-luxury-gold' : 'bg-white/5 text-white/70'
+                }`}
+              >
+                <Terminal className="h-4.5 w-4.5" />
+              </button>
+            )}
 
             <button onClick={onOpenCart} className="relative p-2 bg-white/5 rounded-full hover:bg-white/10 text-white cursor-pointer transition-all">
               <ShoppingCart className="h-4.5 w-4.5" />
@@ -170,7 +172,7 @@ export default function OnyxHeader({
                         <Key className="h-3 w-3" /> Signed Claims JWT
                       </p>
                       <div className="text-[9px] font-mono bg-black/60 text-emerald-400 p-2.5 rounded border border-white/5 break-all select-all leading-normal max-h-20 overflow-y-auto whitespace-normal select-all">
-                        eyJhbGciOiJIUzUxMiJ9.{currentUser.token.substring(0, 120)}...
+                        eyJhbGciOiJIUzUxMiJ9.{(currentUser.token || '').substring(0, 120)}...
                       </div>
                       <div className="text-[9px] text-white/30 mt-1 font-mono italic">
                         Java security context updated on local frame
@@ -249,22 +251,24 @@ export default function OnyxHeader({
           </button>
 
           {/* CODER TERMINAL BUTTON CONSTRUCT - luxury styling */}
-          <button
-            onClick={onToggleSandbox}
-            className={`px-4 py-2 rounded-full flex items-center gap-2 text-[10px] font-mono font-semibold transition-all border shadow-sm cursor-pointer ${
-              isSandboxOpen
-                ? 'bg-luxury-gold/10 border-luxury-gold/30 text-luxury-gold hover:bg-luxury-gold/20'
-                : 'bg-white/5 border-white/10 text-white/80 hover:text-white hover:border-white/20'
-            }`}
-          >
-            <Terminal className="h-3.5 w-3.5 text-luxury-gold" />
-            <span>{isSandboxOpen ? "Close DevSandbox" : "Developer Sandbox"}</span>
-          </button>
+          {!import.meta.env.PROD && (
+            <button
+              onClick={onToggleSandbox}
+              className={`px-4 py-2 rounded-full flex items-center gap-2 text-[10px] font-mono font-semibold transition-all border shadow-sm cursor-pointer ${
+                isSandboxOpen
+                  ? 'bg-luxury-gold/10 border-luxury-gold/30 text-luxury-gold hover:bg-luxury-gold/20'
+                  : 'bg-white/5 border-white/10 text-white/80 hover:text-white hover:border-white/20'
+              }`}
+            >
+              <Terminal className="h-3.5 w-3.5 text-luxury-gold" />
+              <span>{isSandboxOpen ? "Close DevSandbox" : "Developer Sandbox"}</span>
+            </button>
+          )}
         </div>
       </div>
 
       {/* QUICK STATUS TICKER FOR SANDBOX CHEVRONS */}
-      {isSandboxOpen && (
+      {!import.meta.env.PROD && isSandboxOpen && (
         <div className="hidden md:flex bg-[#070A12] border-t border-white/5 px-6 py-2.5 text-xs text-white/50 select-none items-center justify-center gap-8 font-mono font-light leading-none">
           <span className="flex items-center gap-1.5 text-[11px]">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> 
