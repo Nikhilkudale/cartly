@@ -37,18 +37,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        String jwt = authHeader.substring(7);
-        String username = jwtService.extractUsername(jwt);
+        try {
+            String jwt = authHeader.substring(7);
+            String username = jwtService.extractUsername(jwt);
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(
-                                userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                if (jwtService.isTokenValid(jwt, userDetails)) {
+                    UsernamePasswordAuthenticationToken authToken =
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails, null, userDetails.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
             }
+        } catch (Exception e) {
+            // Gracefully ignore expired or malformed tokens, letting Spring Security handle anonymous endpoint access
         }
 
         filterChain.doFilter(request, response);

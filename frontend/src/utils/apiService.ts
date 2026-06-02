@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// Target relative API endpoint via Vite proxy (targets http://localhost:8080)
-const API_URL = "/api";
+// Target production API URL or relative API endpoint via dev proxy
+const API_URL = import.meta.env.VITE_API_URL || "/api";
 
 const api = axios.create({
   baseURL: API_URL,
