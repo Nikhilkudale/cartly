@@ -30,12 +30,34 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return Jwts.builder()
+        var builder = Jwts.builder()
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + jwtProperties.getExpirationMs()))
-                .signWith(getSigningKey())
-                .compact();
+                .expiration(new Date(System.currentTimeMillis() + jwtProperties.getExpirationMs()));
+
+        if (userDetails instanceof UserPrincipal principal) {
+            builder.claim("userId", principal.getId())
+                   .claim("fullName", principal.getFullName())
+                   .claim("role", principal.getAuthorities().iterator().next().getAuthority());
+        }
+
+        return builder.signWith(getSigningKey()).compact();
+    }
+
+    public UserPrincipal extractUserPrincipal(String token) {
+        Claims claims = extractAllClaims(token);
+        String email = claims.getSubject();
+        Number userIdNum = claims.get("userId", Number.class);
+        if (userIdNum == null) {
+            throw new io.jsonwebtoken.MalformedJwtException("Missing userId claim in token");
+        }
+        Long userId = userIdNum.longValue();
+        String fullName = claims.get("fullName", String.class);
+        String role = claims.get("role", String.class);
+        if (role == null) {
+            throw new io.jsonwebtoken.MalformedJwtException("Missing role claim in token");
+        }
+        return new UserPrincipal(userId, email, fullName, role);
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CATEGORIES, PRODUCTS_DATA } from './data/products';
 import { CartItem, Product, SpringLog, MySQLTable } from './types';
 import OnyxHeader from './components/OnyxHeader';
@@ -10,11 +10,12 @@ import DeveloperSandbox from './components/DeveloperSandbox';
 import MyOrdersDrawer, { SavedOrder } from './components/MyOrdersDrawer';
 import SavedItemsDrawer from './components/SavedItemsDrawer';
 import CheckoutModal from './components/CheckoutModal';
+import AIAssistant from './components/AIAssistant';
 import Toast, { ToastMessage } from './components/Toast';
-import { ShieldCheck, Terminal, Award, ChevronRight, Sparkles, Filter, ShieldAlert, Cpu, ShoppingCart } from 'lucide-react';
+import { ChevronRight, Sparkles, Filter, ShoppingCart } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { apiService } from './utils/apiService';
-import { mockUsers, resetDatabase, registerMockUser, logAddToCart, logProductFetch, bulkRestockProducts } from './utils/dbSimulator';
+import { resetDatabase, logAddToCart, logProductFetch, bulkRestockProducts } from './utils/dbSimulator';
 
 export default function App() {
   // Storefront catalog states
@@ -258,7 +259,7 @@ export default function App() {
         description: p.description,
         price: p.price,
         stock: p.stock,
-        brand: p.brand,
+        brand: template.brand || 'Premium',
         category: p.category,
         image: p.imageUrl || template.image
       };
@@ -318,7 +319,7 @@ export default function App() {
   // 8. Place Order checkout triggers with guest authentication locks
   const handleCheckoutTrigger = () => {
     if (!currentUser) {
-      addToast("Authentication required before Checkout. Initializing secure credential validation...", "warn");
+      addToast("Please sign in to continue to checkout.", "warn");
       setPendingCheckoutAfterLogin(true);
       setLoginMode('login');
       setIsLoginModalOpen(true);
@@ -417,7 +418,7 @@ export default function App() {
         setIsCartOpen(false);
         setIsCheckoutModalOpen(false);
         setConfirmedOrderId(result.order.id);
-        addToast("Transaction complete: Your luxury order has been committed!", "success");
+        addToast("Order placed successfully!", "success");
       } else {
         addToast(result.message || "Database rollback occurred.", "error");
       }
@@ -436,10 +437,10 @@ export default function App() {
     const exists = savedItems.some(item => item.id === product.id);
     if (exists) {
       setSavedItems(prev => prev.filter(item => item.id !== product.id));
-      addToast(`"${product.title.replace(new RegExp('^' + product.brand + '\\s*', 'i'), '')}" removed from saved curations.`, 'info');
+      addToast(`Removed from your wishlist.`, 'info');
     } else {
       setSavedItems(prev => [...prev, product]);
-      addToast(`Saved "${product.title.replace(new RegExp('^' + product.brand + '\\s*', 'i'), '')}" to your luxury wishlist tray.`, 'success');
+      addToast(`Added to your wishlist!`, 'success');
     }
   };
 
@@ -450,7 +451,7 @@ export default function App() {
   const handleMoveToCart = (product: Product) => {
     handleAddToCart(product);
     handleRemoveFromSaved(product.id);
-    addToast('Moved curating piece into your cart allocations tray.', 'success');
+    addToast('Moved to your cart!', 'success');
   };
 
   const handleUpdateOrderStatus = (orderId: number, status: 'Ordered' | 'Processing' | 'Shipped' | 'Delivered') => {
@@ -740,7 +741,10 @@ export default function App() {
                   'Clothing': '👗',
                   'Mobiles & Tablets': '📱',
                   'Laptops & Computers': '💻',
-                  'TV & Appliances': '📺'
+                  'TV & Appliances': '📺',
+                  'Beauty & Personal Care': '🧴',
+                  'Sports & Books': '📖',
+                  'Grocery & Gourmet': '🍎'
                 };
                 return (
                   <button
@@ -780,12 +784,13 @@ export default function App() {
               <div className="pt-2">
                 <button 
                   onClick={() => {
-                    setIsSandboxOpen(true);
-                    setSandboxActiveTab('code');
+                    setSelectedCategory('All');
+                    setSearchQuery('');
+                    window.scrollTo({ top: 600, behavior: 'smooth' });
                   }}
-                  className="px-5 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono font-medium tracking-wider flex items-center gap-1.5 cursor-pointer text-white hover:text-luxury-gold transition-all"
+                  className="px-6 py-2.5 rounded-full bg-gold-gradient text-luxury-obsidian text-xs font-display font-extrabold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer hover:opacity-90 transition-all shadow-lg shadow-luxury-gold/10"
                 >
-                  <span>SOURCE MAPPING</span>
+                  <span>Shop Now</span>
                   <ChevronRight className="h-4 w-4" />
                 </button>
               </div>
@@ -807,67 +812,7 @@ export default function App() {
             </div>
           </div>
 
-          {/* Secured Java Authority Control Board Dashboard Panel */}
-          <div className="bg-[#0D1220]/75 border border-white/5 text-white p-5 rounded-3xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-5 select-none font-sans shrink-0 backdrop-blur-xl">
-            {/* Subtle glow node */}
-            <div className="absolute right-0 top-0 h-24 w-24 bg-luxury-violet/5 rounded-full blur-xl pointer-events-none" />
 
-            <div className="space-y-1.5 flex-1 min-w-0">
-              <div className="flex items-center gap-2 text-luxury-gold font-mono text-[9px] font-bold uppercase tracking-widest select-none">
-                <ShieldCheck className="h-3.5 w-3.5 text-luxury-gold animate-pulse" />
-                <span>REST RBAC API Gateway Authority Module</span>
-              </div>
-              <h3 className="text-sm font-extrabold text-slate-100 font-display flex items-center gap-1.5">
-                <span>Secured Tomcat Authorization Session Filter</span>
-                <span className="text-[10px] font-normal text-white/30 font-mono italic">@PreAuthorize("hasRole('ADMIN')")</span>
-              </h3>
-              <p className="text-[11px] text-white/50 leading-relaxed font-light truncate">
-                Principal Candidate: <strong className="text-white font-mono bg-white/5 border border-white/5 px-2 py-0.5 rounded ml-1">{currentUser ? String(currentUser.username) : 'guest_anonymous'}</strong> 
-                &nbsp;&bull;&nbsp; Role: <span className={`font-mono text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wide inline-flex items-center ${currentUser?.role === 'ADMIN' ? 'bg-luxury-gold/10 text-luxury-gold border border-luxury-gold/20' : currentUser ? 'bg-luxury-violet/10 text-luxury-violet border border-luxury-violet/20' : 'bg-white/5 text-white/40'}`}>{currentUser ? `ROLE_${currentUser.role}` : 'ROLE_ANONYMOUS'}</span>
-              </p>
-            </div>
-            
-            <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
-              <button
-                onClick={handleTriggerBulkRestock}
-                className={`px-4 py-2 rounded-xl text-[11px] font-mono font-bold border transition-all cursor-pointer ${
-                  currentUser?.role === 'ADMIN'
-                    ? 'bg-gold-gradient text-luxury-obsidian border-transparent hover:opacity-90 shadow-lg'
-                    : 'bg-white/5 text-white/70 hover:bg-white/10 border-white/5 hover:border-white/10'
-                }`}
-                title="Strict authority filter!"
-              >
-                POST /api/admin/restock
-              </button>
-              
-              {!currentUser && (
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      setLoginMode('login');
-                      setLoginUsername('user@shop.com');
-                      setLoginPassword('user123');
-                      setIsLoginModalOpen(true);
-                    }}
-                    className="px-4 py-2 bg-gradient-to-r from-luxury-violet to-luxury-violet/85 text-white rounded-xl text-[11px] font-sans font-bold shadow transition-all cursor-pointer hover:opacity-90 active:scale-95 whitespace-nowrap"
-                  >
-                    Quick User Preset
-                  </button>
-                  <button
-                    onClick={() => {
-                      setLoginMode('login');
-                      setLoginUsername('admin@shop.com');
-                      setLoginPassword('admin123');
-                      setIsLoginModalOpen(true);
-                    }}
-                    className="px-4 py-2 bg-white/5 text-white border border-white/10 rounded-xl text-[11px] font-sans font-bold shadow transition-all cursor-pointer hover:bg-white/10 active:scale-95 whitespace-nowrap"
-                  >
-                    Quick Admin Preset
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
 
           {/* Staggered dynamic catalog loop */}
           <div className="space-y-6">
@@ -892,7 +837,7 @@ export default function App() {
                 <ShoppingCart className="h-10 w-10 text-white/10 mb-3 stroke-1" />
                 <h4 className="font-display font-medium text-white text-sm mb-1">No matches found</h4>
                 <p className="text-xs text-white/35 max-w-xs font-light leading-relaxed mb-6">
-                  Verify query criteria. You can restock items using the simulation control logs widget.
+                  We couldn't find any products matching your query. Try searching for other luxury items or checking different categories.
                 </p>
                 <button
                   onClick={() => handleSelectCategory('All')}
@@ -998,24 +943,23 @@ export default function App() {
             <div className="bg-gradient-to-b from-[#111624] to-[#0A0E1A] p-8 md:w-2/5 shrink-0 flex flex-col justify-between border-r border-white/5">
               <div className="space-y-4">
                 <span className="font-display font-extrabold text-xl text-white tracking-widest">
-                  O<span className="text-luxury-gold text-gold-gradient">N</span>YX
+                  C<span className="text-luxury-gold text-gold-gradient">A</span>RTLY
                 </span>
                 <p className="text-[11px] text-white/40 leading-relaxed font-light">
                   {loginMode === 'login'
-                    ? 'Authenticate secure cryptographic tokens containing authority roles and user contexts simulated locally.'
-                    : 'Map fresh records, hashing passwords using BCrypt logic and insert values into MySQL schema.'}
+                    ? 'Sign in to access your cart, orders, and personalized recommendations.'
+                    : 'Create your account to start shopping with Cartly today.'}
                 </p>
               </div>
               
               <div className="hidden md:block space-y-4 pt-16">
-                <div className="bg-white/[0.02] p-4 rounded-2xl border border-white/5 text-[10px] font-mono space-y-1.5 text-white/60">
+                <div className="bg-white/[0.02] p-4 rounded-2xl border border-white/5 text-[10px] space-y-2 text-white/50">
                   <span className="text-luxury-gold font-bold uppercase tracking-widest block text-[8px] mb-1 flex items-center gap-1">
-                    <Sparkles className="h-3 w-3" /> Credentials Box
+                    <Sparkles className="h-3 w-3" /> Why Cartly?
                   </span>
-                  <p>Customer &bull; <strong className="text-white">user@shop.com</strong></p>
-                  <p className="text-white/30 italic">Password: user123</p>
-                  <p className="pt-1">Admin &bull; <strong className="text-white">admin@shop.com</strong></p>
-                  <p className="text-white/30 italic">Password: admin123</p>
+                  <p>✦ Curated premium collections</p>
+                  <p>✦ Secure checkout & fast delivery</p>
+                  <p>✦ AI-powered shopping assistant</p>
                 </div>
               </div>
             </div>
@@ -1039,7 +983,7 @@ export default function App() {
                       loginMode === 'login' ? 'text-luxury-gold border-b-2 border-luxury-gold' : 'text-white/40 border-b-2 border-transparent'
                     }`}
                   >
-                    JWT Log in
+                    Sign In
                   </button>
                   <button
                     type="button"
@@ -1055,13 +999,13 @@ export default function App() {
                       loginMode === 'register' ? 'text-luxury-gold border-b-2 border-luxury-gold' : 'text-white/40 border-b-2 border-transparent'
                     }`}
                   >
-                    MySQL Register
+                    Create Account
                   </button>
                 </div>
 
                 {/* Shared username input with custom styled focus state */}
                 <div className="space-y-1.5">
-                  <label className="text-[9px] uppercase font-bold text-white/40 tracking-widest font-mono">Principal Email Address</label>
+                  <label className="text-[9px] uppercase font-bold text-white/40 tracking-widest font-mono">Email Address</label>
                   <input
                     type="text"
                     required
@@ -1088,7 +1032,7 @@ export default function App() {
 
                     {/* Authority selector */}
                     <div className="space-y-2 animate-luxury-fade">
-                      <label className="text-[9px] uppercase font-bold text-white/40 tracking-widest font-mono">Authorization Level</label>
+                      <label className="text-[9px] uppercase font-bold text-white/40 tracking-widest font-mono">Account Type</label>
                       <div className="flex gap-5 pt-1">
                         <label className="flex items-center gap-2 text-xs text-white/70 cursor-pointer">
                           <input
@@ -1098,7 +1042,7 @@ export default function App() {
                             onChange={() => setRegisterRole('CUSTOMER')}
                             className="text-luxury-gold"
                           />
-                          <span className="font-mono text-[10px]">ROLE_CUSTOMER</span>
+                          <span className="font-mono text-[10px]">Customer</span>
                         </label>
                         <label className="flex items-center gap-2 text-xs text-white/70 cursor-pointer">
                           <input
@@ -1108,7 +1052,7 @@ export default function App() {
                             onChange={() => setRegisterRole('ADMIN')}
                             className="text-luxury-gold"
                           />
-                          <span className="text-luxury-gold font-bold font-mono text-[10px]">ROLE_ADMIN</span>
+                          <span className="text-luxury-gold font-bold font-mono text-[10px]">Admin</span>
                         </label>
                       </div>
                     </div>
@@ -1117,7 +1061,7 @@ export default function App() {
 
                 {/* Password input */}
                 <div className="space-y-1.5">
-                  <label className="text-[9px] uppercase font-bold text-white/40 tracking-widest font-mono">Cryptographic Password</label>
+                  <label className="text-[9px] uppercase font-bold text-white/40 tracking-widest font-mono">Password</label>
                   <input
                     type="password"
                     required
@@ -1126,11 +1070,7 @@ export default function App() {
                     placeholder="••••••••"
                     className="w-full text-xs bg-white/5 border border-white/5 focus:border-luxury-gold/50 rounded-xl px-3 py-2.5 outline-none focus:bg-white/10 transition-all text-white font-mono placeholder:text-white/20"
                   />
-                  {loginMode === 'login' && (
-                    <div className="flex justify-between pt-1">
-                      <span className="text-[9px] text-white/25 font-mono italic">Demo credential defaults to password123</span>
-                    </div>
-                  )}
+
                 </div>
               </div>
 
@@ -1140,7 +1080,7 @@ export default function App() {
                   type="submit"
                   className="w-full py-3 bg-gold-gradient text-luxury-obsidian rounded-xl font-display font-extrabold text-xs uppercase tracking-wider shadow-lg transition-all cursor-pointer hover:opacity-90 active:scale-98"
                 >
-                  {loginMode === 'login' ? 'Authenticate context' : 'Register & Create JPA Row'}
+                  {loginMode === 'login' ? 'Sign In' : 'Create Account'}
                 </button>
                 
                 <button
@@ -1148,7 +1088,7 @@ export default function App() {
                   onClick={() => setIsLoginModalOpen(false)}
                   className="w-full py-2.5 bg-white/5 text-white/75 hover:bg-white/10 hover:text-white rounded-xl text-xs font-sans font-semibold text-center cursor-pointer transition-all"
                 >
-                  Cancel Dialogue
+                  Cancel
                 </button>
               </div>
             </form>
@@ -1187,14 +1127,23 @@ export default function App() {
       />
 
       {/* Minimalistic Elegant Footer */}
+      {/* AI Shopping Assistant */}
+      <AIAssistant
+        products={getCatalogProducts()}
+        categories={categories}
+        onSelectProduct={(p) => setSelectedProduct(p)}
+        onAddToCart={handleAddToCart}
+      />
+
+      {/* Footer */}
       <footer className="bg-black/40 h-10 flex items-center px-6 md:px-10 gap-8 shrink-0 text-white/50 select-none border-t border-white/5 text-xs font-mono">
         <div className="flex gap-4 md:gap-6 text-[9px] uppercase tracking-widest text-white/40">
           <span className="hover:text-white cursor-pointer transition-all">Collections</span>
           <span className="hover:text-white cursor-pointer transition-all">Support</span>
-          <span className="hover:text-white cursor-pointer transition-all">REST APIs</span>
+          <span className="hover:text-white cursor-pointer transition-all">About</span>
         </div>
         <div className="ml-auto text-[9px] uppercase tracking-widest text-white/30">
-          <span>© 2026 Cartly Inc. &bull; Enterprise Secure Application</span>
+          <span>© 2026 Cartly Inc. &bull; All rights reserved</span>
         </div>
       </footer>
     </div>

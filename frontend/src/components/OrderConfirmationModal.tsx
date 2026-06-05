@@ -43,21 +43,21 @@ export default function OrderConfirmationModal({
         <div className="space-y-1.5">
           <h2 className="text-xl font-display font-extrabold tracking-normal text-white">Order Placed Successfully</h2>
           <p className="text-xs text-slate-400 leading-relaxed font-light">
-            Your transaction was fully validated, signed, and persisted into our mock MySQL database engine cluster.
+            Your order has been placed successfully and is being prepared for shipment.
           </p>
         </div>
 
         {/* Invoice specifications summary */}
         <div className="bg-black/25 border border-white/5 rounded-2xl p-4.5 text-xs text-left space-y-3 font-mono">
           <div className="flex justify-between items-center pb-2.5 border-b border-white/5">
-            <span className="text-white/50">MySQL Order ID</span>
+            <span className="text-white/50">Order Reference</span>
             <span className="font-mono font-extrabold text-luxury-gold bg-luxury-gold/10 px-2.5 py-0.5 rounded border border-luxury-gold/20 text-[10px]">
               #{orderId}
             </span>
           </div>
 
           <div className="flex justify-between items-center pb-2.5 border-b border-white/5">
-            <span className="text-white/50">InnoDB Txn Key</span>
+            <span className="text-white/50">Transaction ID</span>
             <div className="flex items-center gap-1.5 font-mono text-[10px] text-white/85">
               <span>{txnId.substring(0, 16)}...</span>
               <button
@@ -71,34 +71,46 @@ export default function OrderConfirmationModal({
           </div>
 
           <div className="flex justify-between items-center">
-            <span className="text-white/50">Commit Dialect</span>
+            <span className="text-white/50">Payment Status</span>
             <span className="text-[9px] uppercase font-extrabold tracking-widest text-[#10B981] bg-[#10B981]/10 px-2 py-0.5 rounded border border-[#10B981]/15 leading-none">
-              Auto Committed
+              Success
             </span>
           </div>
         </div>
 
         {/* Database sandbox trigger helper */}
-        <div className="p-4 bg-slate-950 text-xs leading-relaxed text-slate-300 text-left border border-white/5 rounded-2xl flex gap-3">
-          <Terminal className="h-5 w-5 text-luxury-gold shrink-0 mt-0.5 animate-pulse" />
-          <div className="space-y-1.5">
-            <p className="font-semibold text-slate-100 font-display">Inspect SQL execution logs</p>
-            <p className="text-white/40 font-light text-[10px] leading-normal font-sans">
-              Check Hibernate queries (e.g. <code className="text-amber-400 font-mono">INSERT INTO orders</code> and <code className="text-[#22D3EE] font-mono">UPDATE products Set stock = ...</code>) inside your mock terminal log tab below.
-            </p>
-            
-            <button
-              onClick={() => {
-                onOpenSandboxTab();
-                onClose();
-              }}
-              className="text-luxury-gold hover:text-amber-300 flex items-center gap-1 font-extrabold font-mono text-[9px] uppercase tracking-wider pt-1 cursor-pointer transition-all"
-            >
-              <span>Open Server Console</span>
-              <ExternalLink className="h-3 w-3" />
-            </button>
+        {!import.meta.env.PROD && isSandboxOpen ? (
+          <div className="p-4 bg-slate-950 text-xs leading-relaxed text-slate-300 text-left border border-white/5 rounded-2xl flex gap-3">
+            <Terminal className="h-5 w-5 text-luxury-gold shrink-0 mt-0.5 animate-pulse" />
+            <div className="space-y-1.5">
+              <p className="font-semibold text-slate-100 font-display">Inspect SQL execution logs</p>
+              <p className="text-white/40 font-light text-[10px] leading-normal font-sans">
+                Check Hibernate queries (e.g. <code className="text-amber-400 font-mono">INSERT INTO orders</code> and <code className="text-[#22D3EE] font-mono">UPDATE products Set stock = ...</code>) inside your mock terminal log tab below.
+              </p>
+              
+              <button
+                onClick={() => {
+                  onOpenSandboxTab();
+                  onClose();
+                }}
+                className="text-luxury-gold hover:text-amber-300 flex items-center gap-1 font-extrabold font-mono text-[9px] uppercase tracking-wider pt-1 cursor-pointer transition-all"
+              >
+                <span>Open Server Console</span>
+                <ExternalLink className="h-3 w-3" />
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="p-4 bg-white/[0.02] text-xs leading-relaxed text-slate-300 text-left border border-white/5 rounded-2xl flex items-center gap-3 select-none">
+            <ShieldCheck className="h-5 w-5 text-emerald-400 shrink-0" />
+            <div>
+              <p className="font-semibold text-slate-100 font-display text-[11px]">Secure SSL Encrypted Checkout</p>
+              <p className="text-white/40 font-light text-[10px] leading-normal font-sans mt-0.5">
+                Your payment and credentials have been processed securely. A confirmation email has been dispatched.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Main controls */}
         <button

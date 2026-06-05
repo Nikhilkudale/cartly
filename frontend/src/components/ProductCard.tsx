@@ -79,7 +79,7 @@ export default function ProductCard({
       {/* Content Details Segment */}
       <div className="p-5 flex-grow flex flex-col">
         {/* Brand label */}
-        <p className="text-[10px] uppercase font-bold text-luxury-gold tracking-widest mb-1.5 font-mono select-none">
+        <p className="text-[10px] uppercase font-bold text-luxury-gold tracking-widest mb-1.5 font-mono select-none truncate whitespace-nowrap overflow-hidden">
           {product.brand}
         </p>
 
@@ -89,8 +89,8 @@ export default function ProductCard({
         </h3>
 
         {/* Ratings Review System */}
-        <div className="flex items-center gap-2 mb-4 select-none">
-          <div className="flex items-center gap-1 text-amber-400">
+        <div className="flex items-center gap-2 mb-4 select-none min-w-0">
+          <div className="flex items-center gap-1 text-amber-400 shrink-0">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
@@ -100,7 +100,7 @@ export default function ProductCard({
               />
             ))}
           </div>
-          <span className="text-[10px] text-slate-400 font-mono">
+          <span className="text-[10px] text-slate-400 font-mono truncate whitespace-nowrap overflow-hidden">
             {product.rating} &bull; ({product.reviewsCount.toLocaleString()} reviews)
           </span>
         </div>

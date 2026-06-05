@@ -26,6 +26,14 @@ public class UserPrincipal implements UserDetails {
         this.authorities = List.of(new SimpleGrantedAuthority(user.getRole().name()));
     }
 
+    public UserPrincipal(Long id, String email, String fullName, String role) {
+        this.id = id;
+        this.email = email;
+        this.password = "";
+        this.fullName = fullName;
+        this.authorities = role != null ? List.of(new SimpleGrantedAuthority(role)) : List.of();
+    }
+
     @Override
     public String getUsername() {
         return email;

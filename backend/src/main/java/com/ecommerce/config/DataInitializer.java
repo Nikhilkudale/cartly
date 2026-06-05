@@ -21,9 +21,7 @@ public class DataInitializer {
 
         return args -> {
             if (userRepository.count() > 0) {
-                if (categoryRepository.count() == 0) {
-                    catalogImportService.importDemoCatalog();
-                }
+                catalogImportService.importDemoCatalog();
                 return;
             }
 

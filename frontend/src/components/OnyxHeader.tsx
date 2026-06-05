@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, ShoppingCart, Terminal, Shield, LogOut, Key, Sparkles, User, Badge, Heart, Box } from 'lucide-react';
+import { Search, ShoppingCart, Terminal, Shield, LogOut, Key, Sparkles, User, Badge, Heart, Box, ShieldCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface OnyxHeaderProps {
@@ -161,21 +161,26 @@ export default function OnyxHeader({
                   >
                     <div className="px-4 py-3 border-b border-white/5 bg-white/[0.02]">
                       <p className="text-[9px] font-mono font-bold uppercase tracking-widest text-luxury-gold mb-1 flex items-center gap-1">
-                        <Shield className="h-3 w-3" /> Security Principal
+                        <User className="h-3 w-3" /> Account Profile
                       </p>
                       <p className="text-xs font-semibold text-white">{currentUser.fullName}</p>
                       <p className="text-[10px] text-white/50 font-mono truncate">{currentUser.email}</p>
                     </div>
                     
-                    <div className="p-3 border-b border-white/5 bg-black/30">
-                      <p className="text-[9px] font-mono font-bold uppercase tracking-widest text-[#22D3EE] mb-1 flex items-center gap-1">
-                        <Key className="h-3 w-3" /> Signed Claims JWT
-                      </p>
-                      <div className="text-[9px] font-mono bg-black/60 text-emerald-400 p-2.5 rounded border border-white/5 break-all select-all leading-normal max-h-20 overflow-y-auto whitespace-normal select-all">
-                        eyJhbGciOiJIUzUxMiJ9.{(currentUser.token || '').substring(0, 120)}...
+                    <div className="px-4 py-3.5 border-b border-white/5 bg-black/30 text-slate-400 text-[10px] space-y-2 select-none">
+                      <div className="flex items-center justify-between">
+                        <span>Account Status</span>
+                        <span className="text-emerald-400 font-mono font-medium flex items-center gap-1">
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          Verified
+                        </span>
                       </div>
-                      <div className="text-[9px] text-white/30 mt-1 font-mono italic">
-                        Java security context updated on local frame
+                      <div className="flex items-center justify-between">
+                        <span>Connection</span>
+                        <span className="text-luxury-gold font-mono font-medium flex items-center gap-1">
+                          <ShieldCheck className="h-3.5 w-3.5 text-luxury-gold" />
+                          Encrypted
+                        </span>
                       </div>
                     </div>
 
@@ -192,10 +197,10 @@ export default function OnyxHeader({
                     <div className="p-1 bg-[#151B2A]">
                       <button
                         onClick={onLogout}
-                        className="w-full text-left px-3 py-2 text-xs text-rose-400 hover:text-rose-300 hover:bg-rose-950/30 rounded-lg font-mono font-semibold transition-all flex items-center justify-between cursor-pointer"
+                        className="w-full text-left px-3 py-2 text-xs text-rose-450 hover:text-rose-400 hover:bg-rose-950/10 rounded-lg font-sans font-semibold transition-all flex items-center justify-between cursor-pointer"
                       >
-                        <span>Invalidate Session</span>
-                        <span className="text-[8px] bg-rose-950/50 text-rose-300 border border-rose-800/40 px-1.5 py-0.5 rounded font-mono uppercase tracking-widest">Bcrypt Clear</span>
+                        <span>Sign Out</span>
+                        <LogOut className="h-3.5 w-3.5 text-rose-400" />
                       </button>
                     </div>
                   </motion.div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Star, Sparkles, AlertCircle, ShoppingCart, KeyRound, Shield } from 'lucide-react';
+import { X, Star, Sparkles, AlertCircle, ShoppingCart, KeyRound, Shield, Truck, ShieldCheck, Undo2 } from 'lucide-react';
 import { Product } from '../types';
 
 interface ProductDetailModalProps {
@@ -101,7 +101,7 @@ export default function ProductDetailModal({
                   <Star className="h-2.5 w-2.5 text-amber-400 fill-current" />
                 </div>
                 <span className="text-xs text-white/50 font-mono">
-                  {product.reviewsCount.toLocaleString()} real active sessions review
+                  {product.reviewsCount.toLocaleString()} verified reviews
                 </span>
               </div>
 
@@ -122,16 +122,29 @@ export default function ProductDetailModal({
                 )}
               </div>
 
-              {/* Elegant Spring Boot Entity Diagnostic Card */}
-              <div className="mb-5 bg-slate-950/75 text-white/70 p-3.5 rounded-xl border border-white/5 text-[9px] font-mono leading-relaxed select-none space-y-1">
-                <div className="text-luxury-gold font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
-                  <KeyRound className="h-3 w-3 text-luxury-gold" />
-                  <span>Spring MVC Hibernate Mapping</span>
+              {/* Premium Trust & Guarantees Panel */}
+              <div className="mb-5 bg-slate-950/40 p-4 rounded-xl border border-white/5 text-[10px] leading-relaxed select-none space-y-2.5">
+                <div className="flex items-center gap-2.5 text-slate-300">
+                  <Truck className="h-4 w-4 text-luxury-gold shrink-0" />
+                  <div>
+                    <span className="font-bold text-white block">Express Shipping Available</span>
+                    <span className="text-white/50">Dispatched within 24 hours. Hand-inspected premium packaging.</span>
+                  </div>
                 </div>
-                <div className="text-[#8B5CF6] font-semibold font-mono">@Entity @Table(name = "products")</div>
-                <div>Primary key &bull; <span className="text-white">id: Long = {product.id}</span></div>
-                <div>Database sync &bull; <span className="text-[#34D399]">stock: Integer = {product.stock} units</span></div>
-                <div>BigDecimal Price &bull; <span className="text-[#06B6D4]">price: value = {product.price}</span></div>
+                <div className="flex items-center gap-2.5 text-slate-300">
+                  <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0" />
+                  <div>
+                    <span className="font-bold text-white block">100% Authenticity Assured</span>
+                    <span className="text-white/50">Sourced directly from authorized brand distributors.</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2.5 text-slate-300">
+                  <Undo2 className="h-4 w-4 text-cyan-400 shrink-0" />
+                  <div>
+                    <span className="font-bold text-white block">Easy 14-Day Returns</span>
+                    <span className="text-white/50">Official brand warranty and seamless return options included.</span>
+                  </div>
+                </div>
               </div>
 
               {/* Specifications summary */}
